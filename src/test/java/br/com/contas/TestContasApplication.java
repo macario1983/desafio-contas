@@ -20,4 +20,28 @@ public class TestContasApplication {
 		SpringApplication.from(ContasApplication::main).with(TestContasApplication.class).run(args);
 	}
 
+//	@Bean
+//	ApplicationRunner applicationRunner(AuthorRepository authorRepository, BookRepository bookRepository) {
+//
+//		return args -> {
+//
+//			IntStream.range(0, 1_000).forEach(val -> {
+//
+//						Faker faker = new Faker();
+//
+//						Author author = getAuthor(faker);
+//						authorRepository.save(author);
+//					}
+//			);
+//		};
+//	}
+//
+//	private static @NotNull Author getAuthor(Faker faker) {
+//		Author author = new Author();
+//		author.setName(faker.name().fullName());
+//		return author;
+//	}
+//
+//}
+
 }
