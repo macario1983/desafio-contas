@@ -1,6 +1,6 @@
 CREATE TABLE accounts_payable (
     id UUID PRIMARY KEY,
-    due_date DATE NOT NULL CHECK (due_date >= CURRENT_DATE),
+    due_date DATE NOT NULL,
     payment_date DATE,
     amount NUMERIC NOT NULL CHECK (amount > 0),
     description VARCHAR(255) NOT NULL,
