@@ -1,6 +1,6 @@
 server:
   servlet:
-    context-path: /payable-accounts
+    context-path: /accounts
 
 spring:
   application:
