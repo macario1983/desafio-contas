@@ -1,25 +1,38 @@
 package br.com.contas.infrastructure.adapters.output.persitence.entity;
 
 import br.com.contas.domain.model.PayableAccountStatus;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer;
+import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.FutureOrPresent;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.UUID;
 
+@Table(name = "accounts_payable")
 @Entity
 public class PayableAccountEntity {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
 
-    @FutureOrPresent
+    @JsonFormat(pattern = "yyyy-MM-dd")
+    @JsonSerialize(using = LocalDateSerializer.class)
+    @JsonDeserialize(using = LocalDateDeserializer.class)
+    @NotNull
     @Column(nullable = false)
     private LocalDate dueDate;
 
+    @JsonFormat(pattern = "yyyy-MM-dd")
+    @JsonSerialize(using = LocalDateSerializer.class)
+    @JsonDeserialize(using = LocalDateDeserializer.class)
     private LocalDate paymentDate;
 
     @Positive
@@ -31,13 +44,12 @@ public class PayableAccountEntity {
     private String description;
 
     @Enumerated(EnumType.STRING)
-    @NotBlank
+    @NotNull
     @Column(length = 50, nullable = false)
     private PayableAccountStatus status;
 
     @PrePersist
     public void setData() {
-        this.id = UUID.randomUUID();
         this.status = PayableAccountStatus.PENDING;
     }
 
@@ -49,11 +61,11 @@ public class PayableAccountEntity {
         this.id = id;
     }
 
-    public @FutureOrPresent LocalDate getDueDate() {
+    public @NotNull LocalDate getDueDate() {
         return dueDate;
     }
 
-    public void setDueDate(@FutureOrPresent LocalDate dueDate) {
+    public void setDueDate(@NotNull LocalDate dueDate) {
         this.dueDate = dueDate;
     }
 
@@ -81,11 +93,11 @@ public class PayableAccountEntity {
         this.description = description;
     }
 
-    public @NotBlank PayableAccountStatus getStatus() {
+    public @NotNull PayableAccountStatus getStatus() {
         return status;
     }
 
-    public void setStatus(@NotBlank PayableAccountStatus status) {
+    public void setStatus(@NotNull PayableAccountStatus status) {
         this.status = status;
     }
 }
