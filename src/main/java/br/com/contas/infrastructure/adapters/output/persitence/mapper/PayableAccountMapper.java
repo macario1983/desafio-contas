@@ -25,5 +25,4 @@ public interface PayableAccountMapper {
         payableAccountEntity.setDescription(payableAccount.description());
         payableAccountEntity.setStatus(payableAccount.status());
     }
-
 }
