@@ -40,7 +40,7 @@ public class PayableAccountEntity {
     private BigDecimal amount;
 
     @NotBlank
-    @Column(length = 255, nullable = false)
+    @Column(nullable = false)
     private String description;
 
     @Enumerated(EnumType.STRING)

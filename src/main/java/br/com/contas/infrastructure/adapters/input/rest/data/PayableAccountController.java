@@ -5,6 +5,7 @@ import br.com.contas.application.ports.input.GetPayableAccountUseCase;
 import br.com.contas.application.ports.input.UpdatePayableAccountUseCase;
 import br.com.contas.domain.model.PayableAccount;
 import br.com.contas.infrastructure.adapters.input.rest.data.request.PayableAccountRequest;
+import br.com.contas.infrastructure.adapters.input.rest.data.response.PayableAccountResponse;
 import br.com.contas.infrastructure.adapters.output.persitence.mapper.PayableAccountMapper;
 import jakarta.validation.Valid;
 import org.slf4j.Logger;
@@ -42,52 +43,52 @@ public class PayableAccountController {
     }
 
     @PostMapping
-    public ResponseEntity<PayableAccount> createPayableAccount(@RequestBody @Valid PayableAccountRequest payableAccountRequest) {
+    public ResponseEntity<PayableAccountResponse> createPayableAccount(@RequestBody @Valid PayableAccountRequest payableAccountRequest) {
 
         this.logger.info("Iniciando a requisição na camada REST para inserir o payable account: {}", payableAccountRequest);
         PayableAccount payableAccount = this.mapper.toModel(payableAccountRequest);
-        PayableAccount payableAccountSaved = this.createPayableAccountUseCase.createPayableAccount(payableAccount);
+        PayableAccountResponse payableAccountSaved = this.createPayableAccountUseCase.createPayableAccount(payableAccount);
         this.logger.info("Terminando a requisição na camada REST para inserir o payable account: {}", payableAccountRequest);
 
         return ResponseEntity.status(HttpStatus.CREATED).body(payableAccountSaved);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<PayableAccount> updatePayableAccount(@PathVariable UUID id, @RequestBody @Valid PayableAccountRequest payableAccountRequest) {
+    public ResponseEntity<PayableAccountResponse> updatePayableAccount(@PathVariable UUID id, @RequestBody @Valid PayableAccountRequest payableAccountRequest) {
 
         this.logger.info("Iniciando a requisição na camada REST para atualizar o payable account: {}", payableAccountRequest);
         PayableAccount payableAccount = this.mapper.toModel(payableAccountRequest);
-        PayableAccount payableAccountSaved = this.createPayableAccountUseCase.updatePayableAccount(id, payableAccount);
+        PayableAccountResponse payableAccountUpdated = this.createPayableAccountUseCase.updatePayableAccount(id, payableAccount);
         this.logger.info("Terminando a requisição na camada REST para atualizar o payable account: {}", payableAccountRequest);
 
-        return ResponseEntity.status(HttpStatus.CREATED).body(payableAccountSaved);
+        return ResponseEntity.status(HttpStatus.CREATED).body(payableAccountUpdated);
     }
 
     @PatchMapping("/{id}/status")
-    public ResponseEntity<PayableAccount> updatePayableAccountStatus(@PathVariable UUID id, @RequestBody Map<String, Object> fields) {
+    public ResponseEntity<PayableAccountResponse> updatePayableAccountStatus(@PathVariable UUID id, @RequestBody Map<String, Object> fields) {
 
         this.logger.info("Iniciando a requisição na camada REST para atualizar o status da conta a pagar com o ID: {}", id);
-        PayableAccount payableAccountSaved = this.updatePayableAccountUseCase.updatePayableAccountStatus(id, fields);
+        PayableAccountResponse payableAccountSaved = this.updatePayableAccountUseCase.updatePayableAccountStatus(id, fields);
         this.logger.info("Requisição na camada REST para atualizar o status da conta a pagar com o ID {} concluída", id);
 
         return ResponseEntity.status(HttpStatus.OK).body(payableAccountSaved);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<PayableAccount> getPayableAccountById(@PathVariable UUID id) {
+    public ResponseEntity<PayableAccountResponse> getPayableAccountById(@PathVariable UUID id) {
 
         this.logger.info("Iniciando a requisição na camada REST para obter a conta a pagar com o ID: {}", id);
-        PayableAccount payableAccountFound = this.getPayableAccountUseCase.getPayableAccountById(id);
+        PayableAccountResponse payableAccountFound = this.getPayableAccountUseCase.getPayableAccountById(id);
         this.logger.info("Requisição na camada REST para obter a conta a pagar com o ID {} concluída", id);
 
         return ResponseEntity.status(HttpStatus.OK).body(payableAccountFound);
     }
 
     @GetMapping
-    public ResponseEntity<PageImpl<PayableAccount>> getPayableAccountsFiltered(@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "10") int size, @RequestParam(required = false) LocalDate dueDate, @RequestParam(required = false) String description) {
+    public ResponseEntity<PageImpl<PayableAccountResponse>> getPayableAccountsFiltered(@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "10") int size, @RequestParam(required = false) LocalDate dueDate, @RequestParam(required = false) String description) {
 
         this.logger.info("Iniciando a requisição na camada REST para obter as contas a pagar. Parâmetros: dueDate={}, description={}", dueDate, description);
-        PageImpl<PayableAccount> payableAccountsPageountFound = this.getPayableAccountUseCase.getPayableAccountsFiltered(page, size, dueDate, description);
+        PageImpl<PayableAccountResponse> payableAccountsPageountFound = this.getPayableAccountUseCase.getPayableAccountsFiltered(page, size, dueDate, description);
         this.logger.info("Requisição na camada REST para obter as contas a pagar concluída");
         return ResponseEntity.status(HttpStatus.OK).body(payableAccountsPageountFound);
     }

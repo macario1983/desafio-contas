@@ -1,6 +1,7 @@
 package br.com.contas.application.ports.output;
 
 import br.com.contas.domain.model.PayableAccount;
+import br.com.contas.infrastructure.adapters.input.rest.data.response.PayableAccountResponse;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -11,15 +12,15 @@ import java.util.UUID;
 
 public interface PayableAccountOutputPort {
 
-    PayableAccount createPayableAccount(PayableAccount payableAccount);
+    PayableAccountResponse createPayableAccount(PayableAccount payableAccount);
 
-    PayableAccount updatePayableAccount(UUID id, PayableAccount payableAccount);
+    PayableAccountResponse updatePayableAccount(UUID id, PayableAccount payableAccount);
 
-    PayableAccount updatePayableAccountStatus(UUID id, Map<String, Object> fields);
+    PayableAccountResponse updatePayableAccountStatus(UUID id, Map<String, Object> fields);
 
-    PageImpl<PayableAccount> getPayableAccountsFiltered(int page, int size, LocalDate dueDate, String description);
+    PageImpl<PayableAccountResponse> getPayableAccountsFiltered(int page, int size, LocalDate dueDate, String description);
 
-    PayableAccount getPayableAccountById(UUID id);
+    PayableAccountResponse getPayableAccountById(UUID id);
 
     BigDecimal getPayableAccountsAmountByPeriod(LocalDate startDate, LocalDate endDate);
 

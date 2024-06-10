@@ -172,7 +172,7 @@ class PayableAccountControllerTest {
                 .put("/accounts/v1/payable-accounts/{id}", id)
                 .then()
                 .statusCode(201)
-                .body("id", equalTo(id.toString()));
+                .body("id", equalTo(id));
     }
 
     @Test
@@ -227,7 +227,7 @@ class PayableAccountControllerTest {
                 .get("/accounts/v1/payable-accounts/{id}", id)
                 .then()
                 .statusCode(200)
-                .body("id", equalTo(id.toString()));
+                .body("id", equalTo(id));
     }
 
     @Test

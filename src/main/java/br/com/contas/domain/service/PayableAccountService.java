@@ -5,6 +5,7 @@ import br.com.contas.application.ports.input.GetPayableAccountUseCase;
 import br.com.contas.application.ports.input.UpdatePayableAccountUseCase;
 import br.com.contas.application.ports.output.PayableAccountOutputPort;
 import br.com.contas.domain.model.PayableAccount;
+import br.com.contas.infrastructure.adapters.input.rest.data.response.PayableAccountResponse;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -22,22 +23,22 @@ public class PayableAccountService implements CreatePayableAccountUseCase, GetPa
     }
 
     @Override
-    public PayableAccount createPayableAccount(PayableAccount payableAccount) {
+    public PayableAccountResponse createPayableAccount(PayableAccount payableAccount) {
         return this.payableAccountOutputPort.createPayableAccount(payableAccount);
     }
 
     @Override
-    public PayableAccount updatePayableAccount(UUID id, PayableAccount payableAccount) {
+    public PayableAccountResponse updatePayableAccount(UUID id, PayableAccount payableAccount) {
         return this.payableAccountOutputPort.updatePayableAccount(id, payableAccount);
     }
 
     @Override
-    public PayableAccount getPayableAccountById(UUID id) {
+    public PayableAccountResponse getPayableAccountById(UUID id) {
         return this.payableAccountOutputPort.getPayableAccountById(id);
     }
 
     @Override
-    public PageImpl<PayableAccount> getPayableAccountsFiltered(int page, int size, LocalDate dueDate, String description) {
+    public PageImpl<PayableAccountResponse> getPayableAccountsFiltered(int page, int size, LocalDate dueDate, String description) {
         return this.payableAccountOutputPort.getPayableAccountsFiltered(page, size, dueDate, description);
     }
 
@@ -47,7 +48,7 @@ public class PayableAccountService implements CreatePayableAccountUseCase, GetPa
     }
 
     @Override
-    public PayableAccount updatePayableAccountStatus(UUID id, Map<String, Object> fields) {
+    public PayableAccountResponse updatePayableAccountStatus(UUID id, Map<String, Object> fields) {
         return this.payableAccountOutputPort.updatePayableAccountStatus(id, fields);
     }
 

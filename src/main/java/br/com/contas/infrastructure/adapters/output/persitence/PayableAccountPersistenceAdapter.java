@@ -4,6 +4,7 @@ import br.com.contas.application.ports.output.PayableAccountOutputPort;
 import br.com.contas.domain.exception.PayableAccountNotFoundException;
 import br.com.contas.domain.model.PayableAccount;
 import br.com.contas.domain.model.PayableAccountStatus;
+import br.com.contas.infrastructure.adapters.input.rest.data.response.PayableAccountResponse;
 import br.com.contas.infrastructure.adapters.output.persitence.entity.PayableAccountEntity;
 import br.com.contas.infrastructure.adapters.output.persitence.exception.FieldStatusNotFoundException;
 import br.com.contas.infrastructure.adapters.output.persitence.exception.PayableAccountStatusNotFoundException;
@@ -42,18 +43,18 @@ public class PayableAccountPersistenceAdapter implements PayableAccountOutputPor
     }
 
     @Override
-    public PayableAccount createPayableAccount(PayableAccount payableAccount) {
+    public PayableAccountResponse createPayableAccount(PayableAccount payableAccount) {
 
         this.logger.info("Iniciando a persistência do payable account: {}", payableAccount);
         PayableAccountEntity payableAccountEntity = mapper.toEntity(payableAccount);
         PayableAccountEntity payableAccountEntitySaved = this.repository.save(payableAccountEntity);
         this.logger.info("Payable account persistido com sucesso: {}", payableAccountEntitySaved);
 
-        return this.mapper.toModel(payableAccountEntitySaved);
+        return this.mapper.toResponse(payableAccountEntitySaved);
     }
 
     @Override
-    public PayableAccount updatePayableAccount(UUID id, PayableAccount payableAccount) {
+    public PayableAccountResponse updatePayableAccount(UUID id, PayableAccount payableAccount) {
 
         this.logger.info("Iniciando a alteração do payable account: {}", payableAccount);
         PayableAccountEntity payableAccountEntityFound = this.repository.findById(id).orElseThrow(PayableAccountNotFoundException::new);
@@ -61,12 +62,12 @@ public class PayableAccountPersistenceAdapter implements PayableAccountOutputPor
         PayableAccountEntity payableAccountEntitySaved = this.repository.save(payableAccountEntityFound);
         this.logger.info("Payable account alterado com sucesso: {}", payableAccountEntitySaved);
 
-        return this.mapper.toModel(payableAccountEntitySaved);
+        return this.mapper.toResponse(payableAccountEntitySaved);
 
     }
 
     @Override
-    public PayableAccount updatePayableAccountStatus(UUID id, Map<String, Object> fields) {
+    public PayableAccountResponse updatePayableAccountStatus(UUID id, Map<String, Object> fields) {
 
         this.logger.info("Iniciando a alteração do status do payable account com o ID: {}", id);
         Optional.ofNullable(fields.get("status")).orElseThrow(() -> new FieldStatusNotFoundException("status"));
@@ -78,29 +79,29 @@ public class PayableAccountPersistenceAdapter implements PayableAccountOutputPor
         PayableAccountEntity payableAccountEntity = this.repository.findById(id).orElseThrow(PayableAccountNotFoundException::new);
         this.logger.info("Alteração do status do payable account com o ID {} concluída", id);
 
-        return this.mapper.toModel(payableAccountEntity);
+        return this.mapper.toResponse(payableAccountEntity);
     }
 
     @Transactional(readOnly = true)
     @Override
-    public PageImpl<PayableAccount> getPayableAccountsFiltered(int page, int size, LocalDate dueDate, String description) {
+    public PageImpl<PayableAccountResponse> getPayableAccountsFiltered(int page, int size, LocalDate dueDate, String description) {
 
         this.logger.info("Iniciando a busca por contas a pagar com filtros. Parâmetros: page={}, size={}, dueDate={}, description={}", page, size, dueDate, description);
         Pageable pageable = PageRequest.of(page, size);
         this.logger.info("Busca por contas a pagar com filtros concluída");
         Page<PayableAccountEntity> payableAccountEntitiesPaginated = this.repository.findByDueDateOrDescriptionContainingIgnoreCase(pageable, dueDate, description);
-        List<PayableAccount> payableAccounts = payableAccountEntitiesPaginated.map(mapper::toModel).stream().toList();
+        List<PayableAccountResponse> payableAccounts = payableAccountEntitiesPaginated.map(mapper::toResponse).stream().toList();
 
         return new PageImpl<>(payableAccounts, PageRequest.of(page, size), payableAccountEntitiesPaginated.getTotalElements());
     }
 
     @Transactional(readOnly = true)
     @Override
-    public PayableAccount getPayableAccountById(UUID id) {
+    public PayableAccountResponse getPayableAccountById(UUID id) {
 
         this.logger.info("Iniciando a busca por uma conta a pagar com o ID: {}", id);
         PayableAccountEntity payableAccountEntityFound = this.repository.findById(id).orElseThrow(PayableAccountNotFoundException::new);
-        PayableAccount payableAccount = this.mapper.toModel(payableAccountEntityFound);
+        PayableAccountResponse payableAccount = this.mapper.toResponse(payableAccountEntityFound);
         this.logger.info("Busca por uma conta a pagar com o ID {} concluída", id);
 
         return payableAccount;

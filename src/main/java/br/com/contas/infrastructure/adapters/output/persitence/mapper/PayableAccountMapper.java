@@ -9,9 +9,9 @@ import org.mapstruct.Mapper;
 @Mapper(componentModel = "spring")
 public interface PayableAccountMapper {
 
-    PayableAccount toModel(PayableAccountRequest payableAccountRequest);
+    PayableAccountResponse toResponse(PayableAccountEntity payableAccount);
 
-    PayableAccount toModel(PayableAccountResponse payableAccountResponse);
+    PayableAccount toModel(PayableAccountRequest payableAccountRequest);
 
     PayableAccount toModel(PayableAccountEntity payableAccountEntity);
 
