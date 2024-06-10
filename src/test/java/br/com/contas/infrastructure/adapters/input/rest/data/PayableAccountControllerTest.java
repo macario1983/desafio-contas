@@ -29,7 +29,6 @@ class PayableAccountControllerTest {
     @BeforeEach
     public void setup() {
         RestAssured.port = port;
-        RestAssured.enableLoggingOfRequestAndResponseIfValidationFails();
     }
 
     @Test
