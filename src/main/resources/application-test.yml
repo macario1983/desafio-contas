@@ -1,9 +1,3 @@
-jwt:
-  private:
-    key: classpath:app.key
-  public:
-    key: classpath:app.pub
-
 server:
   servlet:
     context-path: /accounts

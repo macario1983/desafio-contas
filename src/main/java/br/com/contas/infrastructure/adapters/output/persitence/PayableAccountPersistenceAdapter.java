@@ -10,6 +10,7 @@ import br.com.contas.infrastructure.adapters.output.persitence.exception.FieldSt
 import br.com.contas.infrastructure.adapters.output.persitence.exception.PayableAccountStatusNotFoundException;
 import br.com.contas.infrastructure.adapters.output.persitence.mapper.PayableAccountMapper;
 import br.com.contas.infrastructure.adapters.output.persitence.repository.PayableAccountRepository;
+import jakarta.validation.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
@@ -39,16 +40,25 @@ public class PayableAccountPersistenceAdapter implements PayableAccountOutputPor
 
     private final PayableAccountRepository repository;
 
+    private final ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
+
+    private final Validator validator = factory.getValidator();
+
     public PayableAccountPersistenceAdapter(PayableAccountMapper mapper, PayableAccountRepository repository) {
         this.mapper = mapper;
         this.repository = repository;
     }
 
     @Override
-    public PayableAccountResponse createPayableAccount(PayableAccount payableAccount) {
+    public PayableAccountResponse createPayableAccount(@Valid PayableAccount payableAccount) {
+
         this.logger.info("Iniciando a persistência do payable account: {}", payableAccount);
         try {
             PayableAccountEntity payableAccountEntity = mapper.toEntity(payableAccount);
+            Set<ConstraintViolation<PayableAccountEntity>> violations = validator.validate(payableAccountEntity);
+            if (!violations.isEmpty()) {
+                throw new ConstraintViolationException(violations);
+            }
             PayableAccountEntity payableAccountEntitySaved = this.repository.save(payableAccountEntity);
             this.logger.info("Payable account persistido com sucesso: {}", payableAccountEntitySaved);
             return this.mapper.toResponse(payableAccountEntitySaved);
@@ -65,6 +75,10 @@ public class PayableAccountPersistenceAdapter implements PayableAccountOutputPor
             PayableAccountEntity payableAccountEntityFound = this.repository.findById(id)
                     .orElseThrow(PayableAccountNotFoundException::new);
             this.mapper.toEntityExceptyId(payableAccount, payableAccountEntityFound);
+            Set<ConstraintViolation<PayableAccountEntity>> violations = validator.validate(payableAccountEntityFound);
+            if (!violations.isEmpty()) {
+                throw new ConstraintViolationException(violations);
+            }
             PayableAccountEntity payableAccountEntitySaved = this.repository.save(payableAccountEntityFound);
             this.logger.info("Payable account alterado com sucesso: {}", payableAccountEntitySaved);
             return this.mapper.toResponse(payableAccountEntitySaved);

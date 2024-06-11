@@ -4,8 +4,8 @@ import br.com.contas.domain.model.PayableAccountStatus;
 import br.com.contas.infrastructure.adapters.output.persitence.entity.PayableAccountEntity;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import jakarta.validation.constraints.NotNull;
 import net.datafaker.Faker;
-import org.jetbrains.annotations.NotNull;
 
 import java.math.BigDecimal;
 import java.util.Locale;
@@ -24,7 +24,7 @@ public class PayableAccountPayload {
 
     }
 
-    public static @NotNull PayableAccountEntity buildPayableAccountEntity() {
+    public static PayableAccountEntity buildPayableAccountEntity() {
 
         Faker faker = new Faker(new Locale("pt-BR"));
 

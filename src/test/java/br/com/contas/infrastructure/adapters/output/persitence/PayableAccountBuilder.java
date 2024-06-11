@@ -6,7 +6,6 @@ import br.com.contas.infrastructure.adapters.input.rest.data.request.PayableAcco
 import br.com.contas.infrastructure.adapters.input.rest.data.response.PayableAccountResponse;
 import br.com.contas.infrastructure.adapters.output.persitence.entity.PayableAccountEntity;
 import net.datafaker.Faker;
-import org.jetbrains.annotations.NotNull;
 
 import java.math.BigDecimal;
 import java.util.Locale;
@@ -15,7 +14,7 @@ import java.util.concurrent.TimeUnit;
 
 public class PayableAccountBuilder {
 
-    public static @NotNull PayableAccountEntity buildPayableAccountEntity() {
+    public static PayableAccountEntity buildPayableAccountEntity() {
 
         Faker faker = new Faker(new Locale("pt-BR"));
 
@@ -30,7 +29,7 @@ public class PayableAccountBuilder {
         return payableAccountEntity;
     }
 
-    public static @NotNull PayableAccount buildPayableAccount() {
+    public static PayableAccount buildPayableAccount() {
 
         Faker faker = new Faker(new Locale("pt-BR"));
 
@@ -44,7 +43,7 @@ public class PayableAccountBuilder {
         return new PayableAccount(id, dueDate, paymentDate, amount, description, status);
     }
 
-    public static @NotNull PayableAccountRequest buildPayableAccountRequest() {
+    public static PayableAccountRequest buildPayableAccountRequest() {
 
         Faker faker = new Faker(new Locale("pt-BR"));
 
@@ -58,7 +57,7 @@ public class PayableAccountBuilder {
         return new PayableAccountRequest(id, dueDate, paymentDate, amount, description, status);
     }
 
-    public static @NotNull PayableAccountResponse buildPayableAccountResponse() {
+    public static PayableAccountResponse buildPayableAccountResponse() {
 
         Faker faker = new Faker(new Locale("pt-BR"));
 

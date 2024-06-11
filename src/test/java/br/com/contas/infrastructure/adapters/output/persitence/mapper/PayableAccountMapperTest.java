@@ -6,6 +6,7 @@ import br.com.contas.infrastructure.adapters.input.rest.data.response.PayableAcc
 import br.com.contas.infrastructure.adapters.output.persitence.PayableAccountBuilder;
 import br.com.contas.infrastructure.adapters.output.persitence.entity.PayableAccountEntity;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.mapstruct.factory.Mappers;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,9 +28,9 @@ public class PayableAccountMapperTest {
         mapper = Mappers.getMapper(PayableAccountMapper.class);
     }
 
+    @DisplayName("Testa a conversão de uma entidade PayableAccountEntity para PayableAccountResponse.")
     @Test
     void testToResponse() {
-
         PayableAccountEntity entity = PayableAccountBuilder.buildPayableAccountEntity();
         PayableAccountResponse response = mapper.toResponse(entity);
 
@@ -41,9 +42,9 @@ public class PayableAccountMapperTest {
         assertEquals(entity.getDescription(), response.description());
     }
 
+    @DisplayName("Testa a conversão de um PayableAccountRequest para um modelo PayableAccount.")
     @Test
     void testToModelFromRequest() {
-
         PayableAccountRequest request = PayableAccountBuilder.buildPayableAccountRequest();
         PayableAccount model = mapper.toModel(request);
 
@@ -54,9 +55,9 @@ public class PayableAccountMapperTest {
         assertEquals(request.description(), model.description());
     }
 
+    @DisplayName("Testa a conversão de uma entidade PayableAccountEntity para um modelo PayableAccount.")
     @Test
     void testToModelFromEntity() {
-
         PayableAccountEntity entity = PayableAccountBuilder.buildPayableAccountEntity();
         PayableAccount model = mapper.toModel(entity);
 
@@ -67,9 +68,9 @@ public class PayableAccountMapperTest {
         assertEquals(entity.getDescription(), model.description());
     }
 
+    @DisplayName("Testa a conversão de um modelo PayableAccount para uma entidade PayableAccountEntity.")
     @Test
     void testToEntity() {
-
         PayableAccount model = PayableAccountBuilder.buildPayableAccount();
         PayableAccountEntity entity = mapper.toEntity(model);
 
@@ -80,9 +81,9 @@ public class PayableAccountMapperTest {
         assertEquals(model.description(), entity.getDescription());
     }
 
+    @DisplayName("Testa a atualização de uma entidade PayableAccountEntity existente com dados de um modelo PayableAccount, exceto o ID.")
     @Test
     void testToEntityExceptyId() {
-
         PayableAccount model = PayableAccountBuilder.buildPayableAccount();
         PayableAccountEntity entity = new PayableAccountEntity();
         mapper.toEntityExceptyId(model, entity);
