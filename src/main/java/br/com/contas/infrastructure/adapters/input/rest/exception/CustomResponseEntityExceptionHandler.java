@@ -1,5 +1,6 @@
 package br.com.contas.infrastructure.adapters.input.rest.exception;
 
+import br.com.contas.domain.exception.PayableAccountNotFoundException;
 import br.com.contas.infrastructure.adapters.output.persitence.exception.FieldStatusNotFoundException;
 import br.com.contas.infrastructure.adapters.output.persitence.exception.PayableAccountStatusNotFoundException;
 import org.springframework.http.HttpStatus;
@@ -52,6 +53,29 @@ public class CustomResponseEntityExceptionHandler extends ResponseEntityExceptio
                 ProblemDetail problemDetail = ProblemDetail.forStatus(HttpStatus.NOT_FOUND);
                 problemDetail.setTitle("Status não encontrado");
                 problemDetail.setDetail("Status " + e.getStatus() + " não encontrado ");
+
+                return problemDetail;
+            }
+        };
+
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorResponse);
+    }
+
+    @ExceptionHandler(PayableAccountNotFoundException.class)
+    public ResponseEntity<ErrorResponse> handlePayableAccountNotFoundException(PayableAccountNotFoundException e) {
+
+        ErrorResponse errorResponse = new ErrorResponse() {
+            @Override
+            public HttpStatusCode getStatusCode() {
+                return HttpStatus.NOT_FOUND;
+            }
+
+            @Override
+            public ProblemDetail getBody() {
+
+                ProblemDetail problemDetail = ProblemDetail.forStatus(HttpStatus.NOT_FOUND);
+                problemDetail.setTitle("Conta não encontrada");
+                problemDetail.setDetail("Conta não encontrada na base de dados ");
 
                 return problemDetail;
             }
