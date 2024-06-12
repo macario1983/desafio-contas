@@ -20,7 +20,7 @@ class PayableAccountMapperTest {
     @Spy
     private PayableAccountMapper mapper = Mappers.getMapper(PayableAccountMapper.class);
 
-    @DisplayName("Testa a conversão de uma entidade PayableAccountEntity para PayableAccountResponse.")
+    @DisplayName("Testa a conversão de uma entidade PayableAccount para PayableAccountView.")
     @Test
     void testToResponse() {
 
@@ -35,7 +35,7 @@ class PayableAccountMapperTest {
         assertEquals(payableAccount.getDescription(), response.description());
     }
 
-    @DisplayName("Testa a conversão de um PayableAccountRequest para um modelo PayableAccount.")
+    @DisplayName("Testa a conversão de um PayableAccountInput para um modelo PayableAccount.")
     @Test
     void testToModelFromRequest() {
 
@@ -49,7 +49,7 @@ class PayableAccountMapperTest {
         assertEquals(payableAccountInput.description(), model.getDescription());
     }
 
-    @DisplayName("Testa a conversão de uma entidade PayableAccountEntity para um modelo PayableAccount.")
+    @DisplayName("Testa a conversão de uma entidade PayableAccount para um modelo PayableAccount.")
     @Test
     void testToModelFromEntity() {
 
@@ -63,7 +63,7 @@ class PayableAccountMapperTest {
         assertEquals(payableAccountInput.description(), model.getDescription());
     }
 
-    @DisplayName("Testa a conversão de um modelo PayableAccount para uma entidade PayableAccountEntity.")
+    @DisplayName("Testa a conversão de um modelo PayableAccount para uma entidade PayableAccount.")
     @Test
     void testToEntity() {
 
@@ -77,7 +77,7 @@ class PayableAccountMapperTest {
         assertEquals(payableAccountInput.description(), payableAccount.getDescription());
     }
 
-    @DisplayName("Testa a atualização de uma entidade PayableAccountEntity existente com dados de um modelo PayableAccount, exceto o ID.")
+    @DisplayName("Testa a atualização de uma entidade PayableAccount existente com dados de um modelo PayableAccount, exceto o ID.")
     @Test
     void testToEntityExceptyId() {
 

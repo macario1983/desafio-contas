@@ -152,7 +152,7 @@ public class PayableAccountService {
             List<PayableAccount> payableAccountEntities = Arrays.stream(contas)
                     .map(s -> {
                         String[] contaArray = s.split(",");
-                        return buildPayableAccountEntity(contaArray);
+                        return buildPayableAccount(contaArray);
                     }).collect(Collectors.toList());
             this.repository.saveAll(payableAccountEntities);
             this.logger.info("Importação de contas a pagar a partir de um arquivo CSV concluída com sucesso.");
@@ -176,7 +176,7 @@ public class PayableAccountService {
         return stringBuilder;
     }
 
-    private PayableAccount buildPayableAccountEntity(String[] contaArray) {
+    private PayableAccount buildPayableAccount(String[] contaArray) {
         PayableAccount payableAccount = new PayableAccount();
         payableAccount.setDueDate(convertStringToLocalDate(contaArray[0]));
         payableAccount.setPaymentDate(convertStringToLocalDate(contaArray[1]));

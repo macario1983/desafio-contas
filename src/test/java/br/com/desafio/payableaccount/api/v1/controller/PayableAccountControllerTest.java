@@ -34,7 +34,7 @@ class PayableAccountControllerTest {
     @Test
     public void testCreatePayableAccount() {
 
-        PayableAccount payableAccount = PayableAccountPayload.buildPayableAccountEntity();
+        PayableAccount payableAccount = PayableAccountPayload.buildPayableAccount();
         String json = PayableAccountPayload.toJson(payableAccount);
 
         given()
@@ -50,7 +50,7 @@ class PayableAccountControllerTest {
     @Test
     public void testCreatePayableAccountWithoutDueDate() {
 
-        PayableAccount payableAccount = PayableAccountPayload.buildPayableAccountEntity();
+        PayableAccount payableAccount = PayableAccountPayload.buildPayableAccount();
         payableAccount.setDueDate(null);
         String json = PayableAccountPayload.toJson(payableAccount);
 
@@ -66,7 +66,7 @@ class PayableAccountControllerTest {
     @Test
     public void testCreatePayableAccountWithAmountNegative() {
 
-        PayableAccount payableAccount = PayableAccountPayload.buildPayableAccountEntity();
+        PayableAccount payableAccount = PayableAccountPayload.buildPayableAccount();
         payableAccount.setAmount(BigDecimal.valueOf(-0.01d));
         String json = PayableAccountPayload.toJson(payableAccount);
 
@@ -82,7 +82,7 @@ class PayableAccountControllerTest {
     @Test
     public void testCreatePayableAccountWithAmountZero() {
 
-        PayableAccount payableAccount = PayableAccountPayload.buildPayableAccountEntity();
+        PayableAccount payableAccount = PayableAccountPayload.buildPayableAccount();
         payableAccount.setAmount(BigDecimal.ZERO);
         String json = PayableAccountPayload.toJson(payableAccount);
 
@@ -98,7 +98,7 @@ class PayableAccountControllerTest {
     @Test
     public void testCreatePayableAccountWithDescriptionNull() {
 
-        PayableAccount payableAccount = PayableAccountPayload.buildPayableAccountEntity();
+        PayableAccount payableAccount = PayableAccountPayload.buildPayableAccount();
         payableAccount.setDescription(null);
         String json = PayableAccountPayload.toJson(payableAccount);
 
@@ -114,7 +114,7 @@ class PayableAccountControllerTest {
     @Test
     public void testCreatePayableAccountWithDescriptionEmtpy() {
 
-        PayableAccount payableAccount = PayableAccountPayload.buildPayableAccountEntity();
+        PayableAccount payableAccount = PayableAccountPayload.buildPayableAccount();
         payableAccount.setDescription(" ");
         String json = PayableAccountPayload.toJson(payableAccount);
 
@@ -131,7 +131,7 @@ class PayableAccountControllerTest {
     @Test
     public void testCreatePayableAccountWithStatusNull() {
 
-        PayableAccount payableAccount = PayableAccountPayload.buildPayableAccountEntity();
+        PayableAccount payableAccount = PayableAccountPayload.buildPayableAccount();
         payableAccount.setStatus(null);
         String json = PayableAccountPayload.toJson(payableAccount);
 
@@ -147,7 +147,7 @@ class PayableAccountControllerTest {
     @Test
     public void testUpdatePayableAccount() {
 
-        PayableAccount payableAccount = PayableAccountPayload.buildPayableAccountEntity();
+        PayableAccount payableAccount = PayableAccountPayload.buildPayableAccount();
         String jsonInsert = PayableAccountPayload.toJson(payableAccount);
 
         String id = given()
@@ -177,7 +177,7 @@ class PayableAccountControllerTest {
     @Test
     public void testUpdatePayableAccountStatus() {
 
-        PayableAccount payableAccount = PayableAccountPayload.buildPayableAccountEntity();
+        PayableAccount payableAccount = PayableAccountPayload.buildPayableAccount();
         String jsonInsert = PayableAccountPayload.toJson(payableAccount);
 
         String id = given()
@@ -207,7 +207,7 @@ class PayableAccountControllerTest {
     @Test
     public void testGetPayableAccountById() {
 
-        PayableAccount payableAccount = PayableAccountPayload.buildPayableAccountEntity();
+        PayableAccount payableAccount = PayableAccountPayload.buildPayableAccount();
         String jsonInsert = PayableAccountPayload.toJson(payableAccount);
 
         String id = given()
@@ -232,7 +232,7 @@ class PayableAccountControllerTest {
     @Test
     public void testGetPayableAccountsFiltered() {
 
-        PayableAccount payableAccount = PayableAccountPayload.buildPayableAccountEntity();
+        PayableAccount payableAccount = PayableAccountPayload.buildPayableAccount();
         String jsonInsert = PayableAccountPayload.toJson(payableAccount);
 
         given()
@@ -259,7 +259,7 @@ class PayableAccountControllerTest {
     @Test
     public void testGetPayableAccountsAmountByPeriod() {
 
-        PayableAccount payableAccount = PayableAccountPayload.buildPayableAccountEntity();
+        PayableAccount payableAccount = PayableAccountPayload.buildPayableAccount();
         String jsonInsert = PayableAccountPayload.toJson(payableAccount);
 
         given()

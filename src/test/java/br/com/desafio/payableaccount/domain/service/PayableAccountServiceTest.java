@@ -89,7 +89,7 @@ class PayableAccountServiceTest {
 
     @DisplayName("Testa a criação de uma conta a pagar com data de vencimento nula, esperando violação de constraint.")
     @Test
-    public void testCreatePayableAccountEntityWithDueDateNull() {
+    public void testCreatePayableAccountWithDueDateNull() {
 
         PayableAccountInput payableAccountInput = PayableAccountBuilder.buildPayableAccountInput();
         PayableAccount payableAccount = buildPayableAccount(payableAccountInput);
@@ -101,7 +101,7 @@ class PayableAccountServiceTest {
 
     @DisplayName("Testa a criação de uma conta a pagar com valor negativo, esperando violação de constraint.")
     @Test
-    public void testCreatePayableAccountEntityWithAmountNegative() {
+    public void testCreatePayableAccountWithAmountNegative() {
 
         PayableAccountInput payableAccountInput = PayableAccountBuilder.buildPayableAccountInput();
         PayableAccount payableAccount = buildPayableAccount(payableAccountInput);
@@ -113,7 +113,7 @@ class PayableAccountServiceTest {
 
     @DisplayName("Testa a criação de uma conta a pagar com valor zero, esperando violação de constraint.")
     @Test
-    public void testCreatePayableAccountEntityWithAmountZero() {
+    public void testCreatePayableAccountWithAmountZero() {
 
         PayableAccountInput payableAccountInput = PayableAccountBuilder.buildPayableAccountInput();
         PayableAccount payableAccount = buildPayableAccount(payableAccountInput);
@@ -125,7 +125,7 @@ class PayableAccountServiceTest {
 
     @DisplayName("Testa a criação de uma conta a pagar com descrição nula, esperando violação de constraint.")
     @Test
-    public void testCreatePayableAccountEntityWithDescriptionNull() {
+    public void testCreatePayableAccountWithDescriptionNull() {
 
         PayableAccountInput payableAccountInput = PayableAccountBuilder.buildPayableAccountInput();
         PayableAccount payableAccount = buildPayableAccount(payableAccountInput);
@@ -137,7 +137,7 @@ class PayableAccountServiceTest {
 
     @DisplayName("Testa a criação de uma conta a pagar com descrição vazia, esperando violação de constraint.")
     @Test
-    public void testCreatePayableAccountEntityWithDescriptionEmpty() {
+    public void testCreatePayableAccountWithDescriptionEmpty() {
 
         PayableAccountInput payableAccountInput = PayableAccountBuilder.buildPayableAccountInput();
         PayableAccount payableAccount = buildPayableAccount(payableAccountInput);
@@ -149,7 +149,7 @@ class PayableAccountServiceTest {
 
     @DisplayName("Testa a criação de uma conta a pagar com descrição contendo apenas espaços, esperando violação de constraint.")
     @Test
-    public void testCreatePayableAccountEntityWithDescriptionWithEmptySpace() {
+    public void testCreatePayableAccountWithDescriptionWithEmptySpace() {
 
         PayableAccountInput payableAccountInput = PayableAccountBuilder.buildPayableAccountInput();
         PayableAccount payableAccount = buildPayableAccount(payableAccountInput);
@@ -161,7 +161,7 @@ class PayableAccountServiceTest {
 
     @DisplayName("Testa a criação de uma conta a pagar com status nulo, esperando violação de constraint.")
     @Test
-    public void testCreatePayableAccountEntityWithStatusNull() {
+    public void testCreatePayableAccountWithStatusNull() {
 
         PayableAccountInput payableAccountInput = PayableAccountBuilder.buildPayableAccountInput();
         PayableAccount payableAccount = buildPayableAccount(payableAccountInput);

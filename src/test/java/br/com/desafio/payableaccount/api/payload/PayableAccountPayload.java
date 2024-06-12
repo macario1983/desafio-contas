@@ -23,7 +23,7 @@ public class PayableAccountPayload {
 
     }
 
-    public static PayableAccount buildPayableAccountEntity() {
+    public static PayableAccount buildPayableAccount() {
 
         Faker faker = new Faker(new Locale("pt-BR"));
 

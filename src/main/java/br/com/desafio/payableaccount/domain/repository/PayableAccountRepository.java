@@ -17,12 +17,12 @@ import java.util.UUID;
 public interface PayableAccountRepository extends JpaRepository<PayableAccount, UUID> {
 
     @Modifying
-    @Query("UPDATE PayableAccountEntity pae SET pae.status = ?2 WHERE pae.id = ?1")
+    @Query("UPDATE PayableAccount pa SET pa.status = ?2 WHERE pa.id = ?1")
     void updateStatusById(UUID id, PayableAccountStatus payableAccountStatus);
 
     Page<PayableAccount> findByDueDateOrDescriptionContainingIgnoreCase(Pageable pageable, LocalDate dueDate, String description);
 
-    @Query("SELECT SUM(pae.amount) FROM PayableAccountEntity pae WHERE pae.dueDate BETWEEN ?1 AND ?2")
+    @Query("SELECT SUM(pa.amount) FROM PayableAccount pa WHERE pa.dueDate BETWEEN ?1 AND ?2")
     BigDecimal findByDueDateBetween(LocalDate startDate, LocalDate endDate);
 
 }
