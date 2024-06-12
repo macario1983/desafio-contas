@@ -2,7 +2,8 @@ package br.com.contas.application.ports.output;
 
 import br.com.contas.domain.model.PayableAccount;
 import br.com.contas.infrastructure.adapters.input.rest.data.response.PayableAccountResponse;
-import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.math.BigDecimal;
@@ -18,7 +19,7 @@ public interface PayableAccountOutputPort {
 
     PayableAccountResponse updatePayableAccountStatus(UUID id, Map<String, Object> fields);
 
-    PageImpl<PayableAccountResponse> getPayableAccountsFiltered(int page, int size, LocalDate dueDate, String description);
+    Page<PayableAccountResponse> getPayableAccountsFiltered(Pageable pageable, LocalDate dueDate, String description);
 
     PayableAccountResponse getPayableAccountById(UUID id);
 

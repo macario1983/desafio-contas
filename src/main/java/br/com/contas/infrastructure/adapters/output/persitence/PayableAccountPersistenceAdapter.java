@@ -14,8 +14,6 @@ import jakarta.validation.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -111,16 +109,14 @@ public class PayableAccountPersistenceAdapter implements PayableAccountOutputPor
 
     @Transactional(readOnly = true)
     @Override
-    public PageImpl<PayableAccountResponse> getPayableAccountsFiltered(int page, int size, LocalDate dueDate, String description) {
-        this.logger.info("Iniciando a busca por contas a pagar com filtros. Parâmetros: page={}, size={}, dueDate={}, description={}", page, size, dueDate, description);
+    public  Page<PayableAccountResponse> getPayableAccountsFiltered(Pageable pageable, LocalDate dueDate, String description) {
+        this.logger.info("Iniciando a busca por contas a pagar com filtros. Parâmetros: page={}, size={}, dueDate={}, description={}", pageable.getPageNumber(), pageable.getPageSize(), dueDate, description);
         try {
-            Pageable pageable = PageRequest.of(page, size);
             Page<PayableAccountEntity> payableAccountEntitiesPaginated = this.repository.findByDueDateOrDescriptionContainingIgnoreCase(pageable, dueDate, description);
-            List<PayableAccountResponse> payableAccounts = payableAccountEntitiesPaginated.map(mapper::toResponse).stream().toList();
             this.logger.info("Busca por contas a pagar com filtros concluída");
-            return new PageImpl<>(payableAccounts, PageRequest.of(page, size), payableAccountEntitiesPaginated.getTotalElements());
+            return payableAccountEntitiesPaginated.map(mapper::toResponse);
         } catch (Exception ex) {
-            this.logger.error("Erro ao buscar contas a pagar com filtros. Parâmetros: page={}, size={}, dueDate={}, description={}", page, size, dueDate, description, ex);
+            this.logger.error("Erro ao buscar contas a pagar com filtros. Parâmetros: page={}, size={}, dueDate={}, description={}", pageable.getPageNumber(), pageable.getPageSize(), dueDate, description, ex);
             throw ex;
         }
     }

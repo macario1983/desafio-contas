@@ -10,7 +10,8 @@ import br.com.contas.infrastructure.adapters.output.persitence.mapper.PayableAcc
 import jakarta.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -97,13 +98,12 @@ public class PayableAccountController {
     }
 
     @GetMapping
-    public ResponseEntity<PageImpl<PayableAccountResponse>> getPayableAccountsFiltered(@RequestParam(defaultValue = "0") int page,
-                                                                                       @RequestParam(defaultValue = "10") int size,
-                                                                                       @RequestParam(required = false) LocalDate dueDate,
-                                                                                       @RequestParam(required = false) String description) {
+    public ResponseEntity<Page<PayableAccountResponse>> getPayableAccountsFiltered(Pageable pageable,
+                                                                                   @RequestParam(required = false) LocalDate dueDate,
+                                                                                   @RequestParam(required = false) String description) {
         this.logger.info("Iniciando a requisição na camada REST para obter as contas a pagar. Parâmetros: dueDate={}, description={}", dueDate, description);
         try {
-            PageImpl<PayableAccountResponse> payableAccountsPageountFound = this.getPayableAccountUseCase.getPayableAccountsFiltered(page, size, dueDate, description);
+            Page<PayableAccountResponse> payableAccountsPageountFound = this.getPayableAccountUseCase.getPayableAccountsFiltered(pageable, dueDate, description);
             this.logger.info("Requisição na camada REST para obter as contas a pagar concluída");
             return ResponseEntity.status(HttpStatus.OK).body(payableAccountsPageountFound);
         } catch (Exception ex) {

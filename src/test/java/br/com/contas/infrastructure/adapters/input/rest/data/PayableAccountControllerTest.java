@@ -170,7 +170,7 @@ class PayableAccountControllerTest {
                 .when()
                 .put("/accounts/v1/payable-accounts/{id}", id)
                 .then()
-                .statusCode(201)
+                .statusCode(HttpStatus.OK.value())
                 .body("id", equalTo(id));
     }
 
@@ -200,7 +200,7 @@ class PayableAccountControllerTest {
                 .when()
                 .patch("/accounts/v1/payable-accounts/{id}/status", id)
                 .then()
-                .statusCode(200)
+                .statusCode(HttpStatus.OK.value())
                 .body("status", equalTo("PAID"));
     }
 
@@ -292,7 +292,7 @@ class PayableAccountControllerTest {
                 .post("/accounts/v1/payable-accounts/import")
                 .then()
                 .statusCode(200)
-                .body(equalTo("Arquivo importado com successo"));
+                .body(equalTo("Arquivo importado com sucesso"));
     }
 
 }

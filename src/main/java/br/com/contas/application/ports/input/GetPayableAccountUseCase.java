@@ -1,7 +1,8 @@
 package br.com.contas.application.ports.input;
 
 import br.com.contas.infrastructure.adapters.input.rest.data.response.PayableAccountResponse;
-import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -11,8 +12,8 @@ public interface GetPayableAccountUseCase {
 
     PayableAccountResponse getPayableAccountById(UUID id);
 
-    PageImpl<PayableAccountResponse> getPayableAccountsFiltered(int page, int size, LocalDate dueDate, String description);
-
     BigDecimal getPayableAccountsAmountByPeriod(LocalDate startDate, LocalDate endDate);
+
+    Page<PayableAccountResponse> getPayableAccountsFiltered(Pageable pageable, LocalDate dueDate, String description);
 
 }

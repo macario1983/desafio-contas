@@ -6,7 +6,8 @@ import br.com.contas.application.ports.input.UpdatePayableAccountUseCase;
 import br.com.contas.application.ports.output.PayableAccountOutputPort;
 import br.com.contas.domain.model.PayableAccount;
 import br.com.contas.infrastructure.adapters.input.rest.data.response.PayableAccountResponse;
-import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.math.BigDecimal;
@@ -38,8 +39,8 @@ public class PayableAccountService implements CreatePayableAccountUseCase, GetPa
     }
 
     @Override
-    public PageImpl<PayableAccountResponse> getPayableAccountsFiltered(int page, int size, LocalDate dueDate, String description) {
-        return this.payableAccountOutputPort.getPayableAccountsFiltered(page, size, dueDate, description);
+    public Page<PayableAccountResponse> getPayableAccountsFiltered(Pageable pageable, LocalDate dueDate, String description) {
+        return this.payableAccountOutputPort.getPayableAccountsFiltered(pageable, dueDate, description);
     }
 
     @Override

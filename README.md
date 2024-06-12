@@ -113,14 +113,3 @@ Este projeto implementa uma API REST para um sistema simples de contas a pagar. 
 2. Aguarde até que todos os contêineres sejam inicializados.
 3. A aplicação estará acessível em [http://localhost:8080](http://localhost:8080).
 4. A aplicação vai subir por default com o profile do docker
-
-### Execução via Gradle
-
-1. Suba o banco de dados da aplicação manualmente
-2. Execute o comando
-  ```bash
-  gradle clean build bootRun --args='--spring.profiles.active=dev'
-  ```
-
-3. Aguarde até que todos os contêineres sejam inicializados.
-4. A aplicação estará acessível em [http://localhost:8080](http://localhost:8080).
