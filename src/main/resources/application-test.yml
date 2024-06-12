@@ -6,13 +6,15 @@ spring:
   application:
     name: contas
   datasource:
-    url: jdbc:postgresql://localhost:5432/contas
-    username: user
-    password: user@123
+    url: ${SPRING_DATASOURCE_URL}
+    username: ${SPRING_DATASOURCE_USERNAME}
+    password: ${SPRING_DATASOURCE_PASSWORD}
     driver-class-name: org.postgresql.Driver
   flyway:
-    enabled: true
-    locations: classpath:localhost/migration
+    locations: classpath:db/migration
     baseline-on-migrate: true
+    table: flyway_schema_version
+    clean-disabled: true
+    validate-on-migrate: true
   jpa:
     open-in-view: false

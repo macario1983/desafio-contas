@@ -1,4 +1,4 @@
-CREATE TABLE accounts_payable (
+CREATE TABLE IF NOT EXISTS accounts_payable (
     id UUID PRIMARY KEY,
     due_date DATE NOT NULL,
     payment_date DATE,
