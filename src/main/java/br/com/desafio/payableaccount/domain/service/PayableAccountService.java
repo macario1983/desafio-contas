@@ -104,7 +104,7 @@ public class PayableAccountService {
     }
 
     @Transactional(readOnly = true)
-    public  Page<PayableAccountView> getPayableAccountsFiltered(Pageable pageable, LocalDate dueDate, String description) {
+    public Page<PayableAccountView> getPayableAccountsFiltered(Pageable pageable, LocalDate dueDate, String description) {
         this.logger.info("Iniciando a busca por contas a pagar com filtros. Parâmetros: page={}, size={}, dueDate={}, description={}", pageable.getPageNumber(), pageable.getPageSize(), dueDate, description);
         try {
             Page<PayableAccount> payableAccountEntitiesPaginated = this.repository.findByDueDateOrDescriptionContainingIgnoreCase(pageable, dueDate, description);

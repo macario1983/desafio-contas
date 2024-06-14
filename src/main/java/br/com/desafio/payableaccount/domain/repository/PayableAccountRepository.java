@@ -1,7 +1,7 @@
 package br.com.desafio.payableaccount.domain.repository;
 
-import br.com.desafio.payableaccount.domain.model.PayableAccountStatus;
 import br.com.desafio.payableaccount.domain.model.PayableAccount;
+import br.com.desafio.payableaccount.domain.model.PayableAccountStatus;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
